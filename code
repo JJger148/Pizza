@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Inventory Tool</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .calendar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .day-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            height: 200px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pizza Inventory Tool</h1>
+    <!-- Other existing elements... -->
+
+    <div class="calendar" id="calendar"></div>
+
+    <script>
+        // Sample data for demonstration
+        const daysData = [
+            {
+                date: "2023-11-20",
+                availablePizzas: 10,
+                orders: [
+                    { name: "John", estimatedTime: "13:00", bringing: "Soda" },
+                    { name: "Jane", estimatedTime: "14:30", bringing: "Napkins" }
+                ]
+            },
+            {
+                date: "2023-11-21",
+                availablePizzas: 5,
+                orders: [
+                    { name: "Alice", estimatedTime: "12:00", bringing: "Salad" },
+                    { name: "Bob", estimatedTime: "13:45", bringing: "Dessert" }
+                ]
+            },
+            // Add more data for other dates...
+        ];
+
+        function createCalendar() {
+            const calendarElement = document.getElementById("calendar");
+
+            daysData.forEach((day) => {
+                const dayBox = document.createElement("div");
+                dayBox.classList.add("day-box");
+
+                const dateHeader = document.createElement("h3");
+                dateHeader.textContent = day.date;
+                dayBox.appendChild(dateHeader);
+
+                const pizzasInfo = document.createElement("p");
+                pizzasInfo.textContent = `Available Pizzas: ${day.availablePizzas}`;
+                dayBox.appendChild(pizzasInfo);
+
+                const ordersInfo = document.createElement("p");
+                if (day.orders.length > 0) {
+                    ordersInfo.innerHTML = "<strong>Orders:</strong><br>";
+                    day.orders.forEach((order) => {
+                        ordersInfo.innerHTML += `${order.name} - Pick-up at ${order.estimatedTime}`;
+                        if (order.bringing) {
+                            ordersInfo.innerHTML += ` | Bringing: ${order.bringing}<br>`;
+                        } else {
+                            ordersInfo.innerHTML += "<br>";
+                        }
+                    });
+                } else {
+                    ordersInfo.textContent = "No orders yet.";
+                }
+                dayBox.appendChild(ordersInfo);
+
+                calendarElement.appendChild(dayBox);
+            });
+        }
+
+        // Call the function to generate the calendar
+        createCalendar();
+    </script>
+</body>
+</html>
